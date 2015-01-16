@@ -1,0 +1,34 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Author  : Zac King  ///////////////////////////////////////////////////////////////////////////////
+//  Origin  : Marco Salamone  /////////////////////////////////////////////////////////////////////////
+//  Date    : 5/12/2014  //////////////////////////////////////////////////////////////////////////////
+//  Purpose : Manage user input controls  /////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#pragma once
+#include "sqlite3.h"
+#include "AIE.h"
+#include <iostream>
+
+enum e_Controls 
+	{ e_left, e_right, e_up, e_down, e_fire, e_lock, e_count };
+
+class ControlManager
+{
+	ControlManager()	{}
+	static const char s_keys_default[e_count];
+	static char s_keys_cache[e_count];
+	static sqlite3 *s_db;
+	static char *s_filename;
+
+public:
+	static ControlManager &getInstance()
+	{ static ControlManager instance; return instance; }
+
+	static void changeKey();
+	static bool isKeyDown(e_Controls e);
+	static void open();
+	static void close();
+	static void changeState();
+	static void DrawControl(e_Controls e, int a_x, int a_y);
+};
